@@ -37,12 +37,12 @@ public class BootstrapApplication extends WolmoApplication {
 
     private NetworkingComponent buildDaggerNetworkingComponent() {
         NetworkingComponent.Builder builder =
-            DaggerNetworkingComponent.builder().baseUrl(Configuration.EXAMPLE_CONFIGURAITON_KEY)
+                DaggerNetworkingComponent.builder().baseUrl(Configuration.EXAMPLE_CONFIGURAITON_KEY)
                 .gsonNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 
         if (BuildConfig.DEBUG) {
             builder.okHttpInterceptors(
-                buildHttpLoggingInterceptor(Level.BODY), new ChuckInterceptor(this));
+                    buildHttpLoggingInterceptor(Level.BODY), new ChuckInterceptor(this));
         }
 
         return builder.build();
@@ -55,7 +55,7 @@ public class BootstrapApplication extends WolmoApplication {
      * @return New instance of interceptor
      */
     private static HttpLoggingInterceptor buildHttpLoggingInterceptor(
-          @NonNull HttpLoggingInterceptor.Level level) {
+            @NonNull HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor loggerInterceptor = new HttpLoggingInterceptor();
         loggerInterceptor.setLevel(level);
         return loggerInterceptor;

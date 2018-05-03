@@ -1,10 +1,9 @@
 package ar.com.wolox.android.example.ui.example;
 
+import javax.inject.Inject;
 
 import ar.com.wolox.android.R;
 import ar.com.wolox.wolmo.core.activity.WolmoActivity;
-
-import javax.inject.Inject;
 
 public class ExampleActivity extends WolmoActivity {
 
