@@ -1,28 +1,26 @@
 package ar.com.wolox.android.example.ui.example;
 
-import ar.com.wolox.android.example.utils.UserSession;
-import ar.com.wolox.wolmo.core.presenter.BasePresenter;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import ar.com.wolox.android.example.utils.UserSession;
+import ar.com.wolox.wolmo.core.presenter.BasePresenter;
+
+/**
+ * Login example presenter which allows the user to login with a mandatory.
+ */
 public class ExamplePresenter extends BasePresenter<IExampleView> {
 
-    // Constants
-    public static final String TAG = "ExamplePresenter";
-    public static final int NUMBER_MAX = 1000;
-    public static final int NUMBER_MIN = 200;
-
-    // Variables
     private UserSession mUserSession;
 
-    // Constructor
     @Inject
     public ExamplePresenter(UserSession userSession) {
         mUserSession = userSession;
     }
 
-    public void storeUsername(String text) {
-        mUserSession.setUsername(text);
-        getView().onUsernameSaved();
+    public void onLogin(@NonNull String login) {
+        mUserSession.setUsername(login);
+        getView().finishLogin();
     }
 }

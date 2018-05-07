@@ -1,8 +1,13 @@
 package ar.com.wolox.android.example.ui.viewpager.random;
 
+import android.support.annotation.NonNull;
+
+/**
+ * A random number simple view that also allows displaying a username.
+ */
 public interface IRandomView {
 
-    void setUsername(String username);
+    void showUsername(@NonNull String username);
 
-    void onRandomNumberUpdate(int someNumber);
+    void updateRandomNumber(int someNumber);
 }

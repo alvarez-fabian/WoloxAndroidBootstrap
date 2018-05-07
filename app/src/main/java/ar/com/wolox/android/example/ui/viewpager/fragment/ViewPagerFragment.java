@@ -4,16 +4,19 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 
+import javax.inject.Inject;
+
 import ar.com.wolox.android.R;
 import ar.com.wolox.android.example.ui.viewpager.random.RandomFragment;
 import ar.com.wolox.android.example.ui.viewpager.request.RequestFragment;
 import ar.com.wolox.wolmo.core.adapter.viewpager.SimpleFragmentPagerAdapter;
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 
+/**
+ * Displays an instance of {@link RandomFragment} and {@link RequestFragment} through a
+ * {@link ViewPager}.
+ */
 public class ViewPagerFragment extends WolmoFragment {
 
     @BindView(R.id.fragment_viewpager_pager) ViewPager mViewPager;

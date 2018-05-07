@@ -1,5 +1,16 @@
 package ar.com.wolox.android.example.ui.viewpager.request;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.stubbing.Answer;
+
+import ar.com.wolox.android.example.model.Post;
+import ar.com.wolox.android.example.network.PostService;
+import ar.com.wolox.wolmo.networking.retrofit.RetrofitServices;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.matches;
@@ -8,20 +19,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import ar.com.wolox.android.example.model.Post;
-import ar.com.wolox.android.example.network.PostService;
-import ar.com.wolox.wolmo.networking.retrofit.RetrofitServices;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.http.Path;
 
 public class RequestPresenterTest {
 
@@ -43,12 +40,7 @@ public class RequestPresenterTest {
         when(mPost.getTitle()).thenReturn("Title");
         when(mPost.getBody()).thenReturn("Body");
 
-        when(mRetrofitServices.getService(any(Class.class))).thenReturn(new PostService() {
-            @Override
-            public Call<Post> getPostById(@Path("id") int id) {
-                return mPostCall;
-            }
-        });
+        when(mRetrofitServices.getService(any(Class.class))).thenReturn((PostService) id -> mPostCall);
 
         mRequestPresenter = new RequestPresenter();
         // Simulate dagger member injection
@@ -63,48 +55,37 @@ public class RequestPresenterTest {
     @Test
     @SuppressWarnings("unchecked")
     public void callViewOnSuccess() {
-        doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                ((Callback<Post>) invocation.getArguments()[0])
-                    .onResponse(mPostCall, Response.success(mPost));
-                return null;
-            }
+        doAnswer(invocation -> {
+            ((Callback<Post>) invocation.getArguments()[0])
+                .onResponse(mPostCall, Response.success(mPost));
+            return null;
         }).when(mPostCall).enqueue(any(Callback.class));
 
         // Verify view updates
         mRequestPresenter.attachView(mPage2View);
-        verify(mPage2View, times(1)).setNewsTitle(matches("Title"));
-        verify(mPage2View, times(1)).setNewsBody(matches("Body"));
+        verify(mPage2View, times(1)).showNews(matches("Title"), matches("Body"));
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void dontCallViewIfNotAttached() {
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                ((Callback<Post>) invocation.getArguments()[0])
-                    .onResponse(mPostCall, Response.success(mPost));
-                return null;
-            }
+        doAnswer(invocation -> {
+            ((Callback<Post>) invocation.getArguments()[0])
+                .onResponse(mPostCall, Response.success(mPost));
+            return null;
         }).when(mPostCall).enqueue(any(Callback.class));
 
         mRequestPresenter.onViewAttached();
-        verify(mPage2View, times(0)).setNewsTitle(anyString());
-        verify(mPage2View, times(0)).setNewsBody(anyString());
+        verify(mPage2View, times(0)).showNews(anyString(), anyString());
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void callViewOnFailure() {
-        doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                ((Callback<Post>) invocation.getArguments()[0])
-                    .onFailure(mPostCall, new Throwable("Error"));
-                return null;
-            }
+        doAnswer((Answer<Object>) invocation -> {
+            ((Callback<Post>) invocation.getArguments()[0])
+                .onFailure(mPostCall, new Throwable("Error"));
+            return null;
         }).when(mPostCall).enqueue(any(Callback.class));
 
         // Verify view updates

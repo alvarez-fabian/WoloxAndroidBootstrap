@@ -3,7 +3,7 @@ package ar.com.wolox.android.example.ui.viewpager.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import ar.com.wolox.android.example.ui.viewpager.ViewpagerActivity;
+import ar.com.wolox.android.example.ui.viewpager.ViewPagerActivity;
 
 import dagger.Binds;
 import dagger.Module;
@@ -22,7 +22,7 @@ public abstract class ViewPagerFragmentModule {
             ViewPagerFragmentSubComponent.Builder builder);
 
     @Provides
-    static FragmentManager providesFragmentManager(ViewpagerActivity viewpagerActivity) {
+    static FragmentManager providesFragmentManager(ViewPagerActivity viewpagerActivity) {
         return viewpagerActivity.getSupportFragmentManager();
     }
 

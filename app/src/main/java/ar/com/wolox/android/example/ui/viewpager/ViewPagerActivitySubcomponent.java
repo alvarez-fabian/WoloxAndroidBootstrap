@@ -6,9 +6,9 @@ import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
 @Subcomponent(modules = {ViewPagerFragmentModule.class})
-public interface ViewPagerActivitySubcomponent extends AndroidInjector<ViewpagerActivity> {
+public interface ViewPagerActivitySubcomponent extends AndroidInjector<ViewPagerActivity> {
 
     @Subcomponent.Builder
-    abstract class Builder extends AndroidInjector.Builder<ViewpagerActivity> {
+    abstract class Builder extends AndroidInjector.Builder<ViewPagerActivity> {
     }
 }

@@ -1,16 +1,17 @@
 package ar.com.wolox.android.example.ui.viewpager;
 
+import javax.inject.Inject;
+
 import ar.com.wolox.android.R;
 import ar.com.wolox.android.example.ui.viewpager.fragment.ViewPagerFragment;
 import ar.com.wolox.wolmo.core.activity.WolmoActivity;
-
-import javax.inject.Inject;
-
 import dagger.Lazy;
 
-public class ViewpagerActivity extends WolmoActivity {
+/**
+ * Simple {@link android.app.Activity} that displays a {@link ViewPagerFragment}.
+ */
+public class ViewPagerActivity extends WolmoActivity {
 
-    // Lazy example, a lazy injection does not build the dependencies until #get() is called
     @Inject Lazy<ViewPagerFragment> mLazyViewpagerFragment;
 
     @Override

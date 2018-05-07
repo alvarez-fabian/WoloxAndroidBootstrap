@@ -1,6 +1,6 @@
 package ar.com.wolox.android.example;
 
-public class Configuration extends BaseConfiguration {
+public final class Configuration extends BaseConfiguration {
 
     private Configuration() {}
 

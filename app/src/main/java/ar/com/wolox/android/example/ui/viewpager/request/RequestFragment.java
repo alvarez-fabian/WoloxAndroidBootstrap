@@ -1,16 +1,19 @@
 package ar.com.wolox.android.example.ui.viewpager.request;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import ar.com.wolox.android.R;
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment;
 import ar.com.wolox.wolmo.core.util.ToastFactory;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 
+/**
+ * Allows the user to request some news.
+ */
 public class RequestFragment extends WolmoFragment<RequestPresenter> implements IRequestView {
 
     @BindView(R.id.fragment_page2_toolbar) Toolbar mToolbar;
@@ -33,12 +36,8 @@ public class RequestFragment extends WolmoFragment<RequestPresenter> implements 
     }
 
     @Override
-    public void setNewsTitle(String title) {
+    public void showNews(@NonNull String title, @NonNull String body) {
         mTitle.setText(title);
-    }
-
-    @Override
-    public void setNewsBody(String body) {
         mBody.setText(body);
     }
 

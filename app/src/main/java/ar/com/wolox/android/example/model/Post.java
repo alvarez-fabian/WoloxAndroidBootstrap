@@ -1,5 +1,8 @@
 package ar.com.wolox.android.example.model;
 
+/**
+ * News post model that contains a title and a body.
+ */
 public class Post {
 
     private String title;

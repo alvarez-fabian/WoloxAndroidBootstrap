@@ -6,6 +6,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
+/**
+ * Gathers news posts endpoints.
+ */
 public interface PostService {
 
     @GET("/posts/{id}")

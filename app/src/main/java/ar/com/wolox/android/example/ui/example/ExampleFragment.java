@@ -8,17 +8,19 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import ar.com.wolox.android.R;
-import ar.com.wolox.android.example.ui.viewpager.ViewpagerActivity;
+import ar.com.wolox.android.example.ui.viewpager.ViewPagerActivity;
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
+/**
+ * 
+ */
 public class ExampleFragment extends WolmoFragment<ExamplePresenter> implements IExampleView {
 
-    // Views (using Butterknife)
     @BindView(R.id.fragment_example_username) TextView mUsername;
-    @BindView(R.id.fragment_example_login) Button mGoToViewpager;
+    @BindView(R.id.fragment_example_login) Button mLoginButton;
 
     @Inject
     public ExampleFragment() {}
@@ -30,21 +32,21 @@ public class ExampleFragment extends WolmoFragment<ExamplePresenter> implements 
 
     @Override
     public void init() {
-        mGoToViewpager.setEnabled(false);
+        mLoginButton.setEnabled(false);
     }
 
     @OnTextChanged(R.id.fragment_example_username)
     protected void onUsernameChanged(CharSequence value) {
-        mGoToViewpager.setEnabled(!TextUtils.isEmpty(value));
+        mLoginButton.setEnabled(!TextUtils.isEmpty(value));
     }
 
     @OnClick(R.id.fragment_example_login)
     public void onGoToViewpage() {
-        getPresenter().storeUsername(mUsername.getText().toString());
+        getPresenter().onLogin(mUsername.getText().toString());
     }
 
-    public void onUsernameSaved() {
-        Intent intent = new Intent(getActivity(), ViewpagerActivity.class);
+    public void finishLogin() {
+        Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
         startActivity(intent);
     }
 }

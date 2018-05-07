@@ -16,6 +16,11 @@ import dagger.android.AndroidInjector;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
+/**
+ * Represents the running application.
+ * <p/>
+ * Generally used for initializing application-scope utilities.
+ */
 public class BootstrapApplication extends WolmoApplication {
 
     @Override
@@ -48,12 +53,6 @@ public class BootstrapApplication extends WolmoApplication {
         return builder.build();
     }
 
-    /**
-     * Returns a {@link HttpLoggingInterceptor} with the level given by <b>level</b>.
-     *
-     * @param level - Logging level for the interceptor.
-     * @return New instance of interceptor
-     */
     private static HttpLoggingInterceptor buildHttpLoggingInterceptor(
             @NonNull HttpLoggingInterceptor.Level level) {
         HttpLoggingInterceptor loggerInterceptor = new HttpLoggingInterceptor();

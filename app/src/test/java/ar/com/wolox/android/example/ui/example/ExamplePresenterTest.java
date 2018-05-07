@@ -25,15 +25,15 @@ public class ExamplePresenterTest {
     @Test
     public void usernameIsStored() {
         mExamplePresenter.attachView(mExampleView);
-        mExamplePresenter.storeUsername("Test");
+        mExamplePresenter.onLogin("Test");
         verify(mUserSession, times(1)).setUsername("Test");
     }
 
     @Test
     public void storeUsernameUpdatesView() {
         mExamplePresenter.attachView(mExampleView);
-        mExamplePresenter.storeUsername("Test");
-        verify(mExampleView, times(1)).onUsernameSaved();
+        mExamplePresenter.onLogin("Test");
+        verify(mExampleView, times(1)).finishLogin();
     }
 
 }
